@@ -1,7 +1,7 @@
-from .windows.MainWindow import main_window
 from aiogram_dialog import Dialog
-from aiogram import Router
+
+from .windows import in_task_window, main_window
+
 
 def main_dialog() -> Dialog:
-    dialog = Dialog(main_window())
-    return dialog
+    return Dialog(main_window(), in_task_window())

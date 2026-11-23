@@ -1,29 +1,55 @@
-from aiogram_dialog import Window
-from aiogram_dialog.widgets.markup.force_reply import ForceReplyFactory
-from aiogram_dialog.widgets.text import Format, Const, Progress, List
-from aiogram_dialog.widgets.kbd import Row, ScrollingGroup, Button, Group, ListGroup, PrevPage, NextPage, Select
 import operator
-from ..Callbacks.OnTaskClicked import on_task_clicked
+
+from aiogram_dialog import Window
+from aiogram_dialog.widgets.kbd import Button, ScrollingGroup, Select
+from aiogram_dialog.widgets.text import Case, Const, Format
+from magic_filter import F
+
+from ..Callbacks import on_add_task_clicked, on_task_clicked
 from ..getters.MainGetter import main_getter
-from bot.dialogs.States import MainStates
+from ..States import MainStates
+
+DIVIDER = "━━━━━━━━━━━━━━━━━━"
 
 
 def main_window():
     window = Window(
-        Format("""<b>---ВАШИ ЗАДАЧИ---</b>\n"""),
+        Format(f"🕒 <b>Ваши задачи</b>  ·  {{tasks_count}}\n{DIVIDER}\n"),
+        Case(
+            {
+                True: Format("Выберите задачу, чтобы открыть её 👇"),
+                False: Format(
+                    "✨ Пока задач нет.\n"
+                    "Нажмите «➕ Добавить задачу» внизу."
+                ),
+            },
+            selector="has_tasks",
+        ),
         ScrollingGroup(
             Select(
-                Format("{item[0]}"),  # Предположим, item[0] - это текст задачи
+                Case(
+                    {
+                        0: Format("🟢 {item[date]} — {item[data]}"),
+                        1: Format("✅ {item[date]} — {item[data]}"),
+                    },
+                    selector=F["item"]["status"],
+                ),
                 id="task_select",
-                item_id_getter=operator.itemgetter(0),  # ID задачи (например, индекс или ключ)
+                item_id_getter=operator.itemgetter("id"),
                 items="tasks",
-                on_click=on_task_clicked,  # Ваша функция-обработчик
+                on_click=on_task_clicked,
             ),
             id="tasks_scroll",
-            width=1,  # 1 кнопка в ряд
-            height=5,  # 5 кнопок на странице
+            width=1,
+            height=5,
+            hide_on_single_page=True,
+        ),
+        Button(
+            Const("➕ Добавить задачу"),
+            id="add_task",
+            on_click=on_add_task_clicked,
         ),
         state=MainStates.main_menu,
-        getter=main_getter
+        getter=main_getter,
     )
     return window

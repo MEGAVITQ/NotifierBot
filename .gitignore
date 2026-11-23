@@ -1,0 +1,105 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ===== Virtual Environments =====
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.python-version
+
+# ===== Environment / Secrets =====
+# Токены ботов, API-ключи, пароли
+.env
+.env.*
+!.env.example
+*.env
+config.ini
+config.yaml
+config.yml
+secrets.json
+credentials.json
+
+# ===== Telegram Bot specific =====
+# Локальные БД (SQLite)
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Логи
+*.log
+logs/
+
+# Сессии (если используешь Pyrogram/Telethon)
+*.session
+*.session-journal
+session/
+sessions/
+
+# Медиа и кеш бота
+downloads/
+media/
+temp/
+tmp/
+cache/
+
+# ===== IDE / Editors =====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ===== Testing =====
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+
+# ===== OS =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Misc =====
+*.bak
+*.backup
+*.tmp
+
+.env

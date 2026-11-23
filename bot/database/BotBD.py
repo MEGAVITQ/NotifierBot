@@ -3,12 +3,12 @@ from datetime import datetime
 from pathlib import Path
 
 
-DB_PATH = Path(__file__).resolve().parents[2] / "Notifier.db"
 
 
 class BotBD:
-    def __init__(self, path: str | Path = DB_PATH):
-        self.conn = sql.connect(path)
+    def __init__(self):
+        try: self.conn = sql.connect("/data/Notifier.db")
+        except: self.conn = sql.connect("Notifier.db")
         self.cur = self.conn.cursor()
 
     def create_tables(self):

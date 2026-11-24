@@ -112,6 +112,7 @@ class BotBD:
     def delete_task(self, task_id):
         params = (task_id,)
         self.cur.execute("DELETE FROM Notifications WHERE Id = ?", params)
+        self.conn.commit()
 
     def close_connection(self):
         self.conn.close()

@@ -2,7 +2,7 @@ from aiogram_dialog import Window
 from aiogram_dialog.widgets.kbd import Button
 from aiogram_dialog.widgets.text import Case, Const, Format
 
-from ..Callbacks import on_back_clicked, on_complete_clicked
+from ..Callbacks import on_back_clicked, on_complete_clicked, on_delete_clicked
 from ..getters import in_task_getter
 from ..States import MainStates
 
@@ -38,6 +38,11 @@ def in_task_window():
             ),
             on_click=on_complete_clicked,
             id="complete",
+        ),
+        Button(
+            Const("Удалить"),
+            on_click=on_delete_clicked,
+            id="delete",
         ),
         getter=in_task_getter,
         state=MainStates.InTask,

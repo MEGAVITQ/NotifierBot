@@ -109,5 +109,9 @@ class BotBD:
         params = (task_id,)
         return self.cur.execute("SELECT Data, Date, Status FROM Notifications WHERE Id = ?", params).fetchone()
 
+    def delete_task(self, task_id):
+        params = (task_id,)
+        self.cur.execute("DELETE FROM Notifications WHERE Id = ?", params)
+
     def close_connection(self):
         self.conn.close()

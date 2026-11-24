@@ -26,11 +26,8 @@ async def _show_tasks(message: types.Message, dialog_manager: DialogManager) -> 
     finally:
         bd.close_connection()
 
-    await dialog_manager.start(
-        MainStates.main_menu,
-        mode=StartMode.RESET_STACK,
-        data={"user_id": message.from_user.id},
-    )
+    await dialog_manager.start(MainStates.main_menu,mode=StartMode.RESET_STACK,
+                               data={"user_id": message.from_user.id},)
 
 
 @router.message(F.text == "➕ Добавить задачу")

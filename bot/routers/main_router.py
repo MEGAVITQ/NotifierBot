@@ -31,11 +31,8 @@ async def start(message: types.Message) -> None:
 
 
 @router.message(Command("start"))
-async def start(
-    message: types.Message,
-    dialog_manager: DialogManager,
-    state: FSMContext,
-) -> None:
+async def start(message: types.Message,dialog_manager: DialogManager,
+                state: FSMContext,) -> None:
     name = escape(message.from_user.first_name or "друг")
 
     await state.clear()

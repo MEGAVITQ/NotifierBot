@@ -55,10 +55,8 @@ async def task_done(callback: CallbackQuery) -> None:
 
 
 @router.callback_query(F.data == "open_tasks")
-async def open_tasks(
-    callback: CallbackQuery,
-    dialog_manager: DialogManager,
-) -> None:
+async def open_tasks(callback: CallbackQuery,
+                     dialog_manager: DialogManager,) -> None:
     user = callback.from_user
 
     bd = BotBD()
@@ -69,8 +67,5 @@ async def open_tasks(
         bd.close_connection()
 
     await callback.answer()
-    await dialog_manager.start(
-        MainStates.main_menu,
-        mode=StartMode.RESET_STACK,
-        data={"user_id": user.id},
-    )
+    await dialog_manager.start(MainStates.main_menu,mode=StartMode.RESET_STACK,
+                               data={"user_id": user.id},)

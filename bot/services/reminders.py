@@ -35,7 +35,8 @@ def _days_word(number: int) -> str:
     return "дней"
 
 
-def _render_text(kind: str, task_data: str, deadline: date, days_left: int) -> str:
+def _render_text(kind: str, task_data: str,
+                 deadline: date, days_left: int) -> str:
     task_data = escape(task_data)
     deadline_str = deadline.strftime("%d.%m.%Y")
 

@@ -5,8 +5,8 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from .misc import TgKeys
 from aiogram.client.default import DefaultBotProperties
 
-TgKeys = TgKeys()
-token = TgKeys.get_token()
+_keys = TgKeys()
+token = _keys.get_token()
 
 bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML, ))
 dp = Dispatcher(storage=MemoryStorage())

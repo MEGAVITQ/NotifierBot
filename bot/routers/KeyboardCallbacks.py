@@ -43,11 +43,7 @@ async def add_notify(message: types.Message, state: FSMContext) -> None:
 
 
 @router.message(AddNotifyStates.ASK_DATA, F.text)
-async def ask_data(
-    message: types.Message,
-    state: FSMContext,
-    dialog_manager: DialogManager,
-) -> None:
+async def ask_data(message: types.Message,state: FSMContext,dialog_manager: DialogManager,) -> None:
     if message.text == "📋 Мои задачи":
         await state.clear()
         await _show_tasks(message, dialog_manager)
@@ -63,17 +59,19 @@ async def ask_data(
 
 
 @router.message(AddNotifyStates.ASK_DATE, F.text)
-async def ask_date(
-    message: types.Message,
-    state: FSMContext,
-    dialog_manager: DialogManager,
-) -> None:
+async def ask_date(message: types.Message,state: FSMContext,
+                   dialog_manager: DialogManager,) -> None:
     if message.text == "📋 Мои задачи":
         await state.clear()
         await _show_tasks(message, dialog_manager)
         return
 
     raw_date = (message.text or "").strip()
+    split_date = raw_date.split("-")
+    if len(split_date) == 1:
+        raw_date = f"{datetime.now().year}-{datetime.now().month}-{raw_date}"
+    elif len(split_date) == 2:
+        raw_date = f"{datetime.now().year}-{split_date[0]}-{split_date[1]}"
     try:
         deadline = datetime.strptime(raw_date, "%Y-%m-%d").date()
     except ValueError:

@@ -3,6 +3,7 @@ import logging
 from contextlib import suppress
 
 from aiogram import Bot
+from aiogram.exceptions import TelegramUnauthorizedError
 from aiogram_dialog import setup_dialogs
 
 from bot.database import BotBD
@@ -21,6 +22,24 @@ reminder_task: asyncio.Task | None = None
 
 async def on_startup(bot: Bot) -> None:
     global reminder_task
+
+    try:
+        me = await bot.me()
+    except TelegramUnauthorizedError as error:
+        logging.critical(
+            "Telegram отклонил токен (401 Unauthorized): %s. "
+            "Токен %s...%s больше не действует или указан неверно. "
+            "Проверьте TOKEN в .env и при необходимости выпустите новый "
+            "через @BotFather (API Token).",
+            error,
+            bot.token[:4], bot.token[-4:],
+        )
+        raise
+
+    logging.info(
+        "Подключён к Telegram как @%s (id=%s), токен %s...%s",
+        me.username, me.id, bot.token[:4], bot.token[-4:],
+    )
 
     bd = BotBD()
     try:
